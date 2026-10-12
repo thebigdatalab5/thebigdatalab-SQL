@@ -28,6 +28,8 @@ This guide takes you from zero to confident with the basics of SQL. Every idea i
 
 All examples use one small practice table, so you only have to learn one dataset. SQL syntax is nearly the same across PostgreSQL, MySQL, SQL Server, Spark SQL and Databricks SQL. Where an engine differs, the guide says so. Always check the documentation of the engine you use.
 
+**Interactive playground:** There's a small interactive game that demonstrates these concepts visually. Open `docs/index.html` in a browser to try the "SQL Restaurant" playground locally. To publish it for visitors via GitHub Pages, enable Pages in your repository settings and set the source to the `docs/` folder on the `main` branch.
+
 ## 0. What is SQL, and what is a table?
 
 SQL (Structured Query Language) is the language we use to ask questions of data stored in a database. A database stores data in **tables**. A table looks like a spreadsheet:
