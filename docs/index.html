@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SQL Restaurant — Interactive SQL Playground</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>SQL Restaurant — Interactive SQL Playground</h1>
+    <p class="tag">A playful UI that turns <code>stage1.md</code> concepts into a tiny game.</p>
+  </header>
+
+  <main>
+    <section class="left">
+      <div class="card story">
+        <div class="card-accent" data-tip="Rows are diners; columns are their menu choices. Click the accent for tips."></div>
+        <h2><span class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c-2.21 0-4 1.79-4 4v1H6a2 2 0 00-2 2v1h16V9a2 2 0 00-2-2h-2V6c0-2.21-1.79-4-4-4z" fill="#FF7A59"/><path d="M5 12v6a3 3 0 003 3h8a3 3 0 003-3v-6H5z" fill="#FFD166"/></svg></span>Welcome to the SQL Bistro</h2>
+        <p>Rows are diners, columns are menu choices. Use the controls to place an order (build a query) and see what the chef returns.</p>
+        <ul>
+          <li><strong>Select</strong> which columns you want to see.</li>
+          <li><strong>Filter</strong> with the doorman (WHERE).</li>
+          <li><strong>Sort</strong> with the maître d' (ORDER BY) and only seat a few with LIMIT.</li>
+        </ul>
+      </div>
+
+      <div class="card controls">
+        <div class="card-accent" data-tip="Build queries by picking columns and filters."></div>
+        <h3><span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="18" height="3" rx="1" fill="#00C2A8"/><rect x="3" y="11" width="12" height="3" rx="1" fill="#7EF5D6"/><rect x="3" y="17" width="8" height="3" rx="1" fill="#BFFFEF"/></svg></span>Your Order (Query Builder)</h3>
+        <div class="form-row">
+          <label>Select columns:</label>
+          <div class="cols">
+            <label><input type="checkbox" data-col="emp_id" checked> emp_id</label>
+            <label><input type="checkbox" data-col="name" checked> name</label>
+            <label><input type="checkbox" data-col="department" checked> department</label>
+            <label><input type="checkbox" data-col="city" checked> city</label>
+            <label><input type="checkbox" data-col="salary" checked> salary</label>
+            <label><input type="checkbox" data-col="join_date"> join_date</label>
+            <label><input type="checkbox" data-col="bonus"> bonus</label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>WHERE (doorman):</label>
+          <select id="where-col">
+            <option value="">-- none --</option>
+            <option value="department">department</option>
+            <option value="city">city</option>
+            <option value="salary">salary</option>
+            <option value="join_date">join_date</option>
+            <option value="bonus">bonus</option>
+          </select>
+          <select id="where-op">
+            <option value="=">=</option>
+            <option value=">">&gt;</option>
+            <option value="<">&lt;</option>
+            <option value=">=">&gt;=</option>
+            <option value="<=">&lt;=</option>
+            <option value="!=">!=</option>
+            <option value="like">LIKE</option>
+            <option value="isnull">IS NULL</option>
+            <option value="isnotnull">IS NOT NULL</option>
+          </select>
+          <input id="where-val" placeholder="value (use quotes for text)" />
+        </div>
+
+        <div class="form-row">
+          <label>ORDER BY:</label>
+          <select id="order-col">
+            <option value="">-- none --</option>
+            <option value="salary">salary</option>
+            <option value="name">name</option>
+            <option value="department">department</option>
+            <option value="city">city</option>
+          </select>
+          <select id="order-dir">
+            <option value="asc">ASC</option>
+            <option value="desc">DESC</option>
+          </select>
+          <label class="small"><input id="distinct" type="checkbox"> DISTINCT</label>
+        </div>
+
+        <div class="form-row">
+          <label>LIMIT:</label>
+          <input id="limit" type="number" min="0" placeholder="e.g. 3" />
+        </div>
+
+        <div class="form-row actions">
+          <button id="run">Run Query</button>
+          <button id="reset">Reset</button>
+          <button id="show-sql">Show SQL</button>
+        </div>
+
+        <pre id="sql-preview" class="sql"></pre>
+      </div>
+
+      <div class="card challenges">
+        <div class="card-accent" data-tip="Quick hands-on exercises copied from the guide."></div>
+        <h3><span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16v4H4z" fill="#6B28FF"/><path d="M4 12h10v8H4z" fill="#8F75FF"/></svg></span>Challenges</h3>
+        <p>Try these from `stage1.md`. Click a challenge to reveal the suggested SQL and expected result.</p>
+        <ol id="challenge-list">
+          <li data-q="SELECT name, city FROM employees WHERE department = 'Sales';">1. Name and city of every employee in Sales</li>
+          <li data-q="SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 2;">2. Two highest paid employees</li>
+          <li data-q="SELECT city, COUNT(*) AS employee_count FROM employees GROUP BY city;">3. How many employees in each city</li>
+          <li data-q="SELECT department FROM employees GROUP BY department HAVING AVG(salary) > 52000;">4. Departments with average &gt; 52000</li>
+          <li data-q="SELECT name FROM employees WHERE bonus IS NULL;">5. Employees with no bonus</li>
+        </ol>
+        <div id="challenge-output" class="challenge-output"></div>
+      </div>
+
+      <div class="card quiz">
+        <div class="card-accent" data-tip="Short multiple-choice quiz — perfect score triggers confetti!"></div>
+        <h3><span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.9 6.1L21 9l-5 3.6L17.8 21 12 17.8 6.2 21 8 12.6 3 9l6.1-0.9L12 2z" fill="#FF7AB6"/></svg></span>Quick Quiz</h3>
+        <div id="quiz-container"></div>
+        <div class="form-row actions">
+          <button id="submit-quiz">Submit Quiz</button>
+          <button id="reset-quiz">Reset Quiz</button>
+        </div>
+        <div id="quiz-result" class="challenge-output"></div>
+      </div>
+    </section>
+
+    <section class="right">
+      <div class="card results">
+        <div class="card-accent" data-tip="This shows the rows returned by your query."></div>
+        <h3><span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="6" width="18" height="3" rx="1" fill="#A97BFF"/><rect x="3" y="12" width="18" height="3" rx="1" fill="#FFD1F0"/></svg></span>Result</h3>
+        <div id="result-count" class="count"></div>
+        <table id="result-table"><thead></thead><tbody></tbody></table>
+      </div>
+
+      <div class="card explanation">
+        <div class="card-accent" data-tip="Short reminders for SELECT / WHERE / GROUP BY etc."></div>
+        <h3><span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16v12H4z" fill="#FFF39A"/><path d="M8 10h8v2H8z" fill="#FFD166"/></svg></span>Cheat Sheet</h3>
+        <ul>
+          <li><strong>SELECT</strong> columns to show.</li>
+          <li><strong>WHERE</strong> filters rows before grouping.</li>
+          <li><strong>GROUP BY</strong> and <strong>HAVING</strong> summarise and filter groups.</li>
+          <li><strong>ORDER BY</strong> sorts, <strong>LIMIT</strong> trims results.</li>
+        </ul>
+        <p class="tip">Open this file in a browser: <em>sql-restaurant-game/index.html</em></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>Made from `stage1.md` — interactive playground for newcomers.</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
