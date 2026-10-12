@@ -1,5 +1,7 @@
 SQL Restaurant — Interactive SQL Playground
 
+Live demo: https://thebigdatalab5.github.io/thebigdatalab-SQL/
+
 Open `sql-restaurant-game/index.html` in a browser to run a small single-page interactive playground that teaches concepts from `stage1.md`.
 
 What it does:

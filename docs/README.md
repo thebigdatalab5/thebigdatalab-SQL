@@ -1,6 +1,8 @@
 SQL Restaurant — Interactive SQL Playground (Docs)
 
-This folder contains the playable version of the SQL Restaurant. If you enable GitHub Pages for this repository and set the source to the `docs/` folder on the `main` branch, this page will be served at `https://<your-org-or-user>.github.io/<repo>/`.
+Live demo: https://thebigdatalab5.github.io/thebigdatalab-SQL/
+
+This folder contains the playable version of the SQL Restaurant. The site is published to GitHub Pages at the URL above.
 
 Quick local preview:
 1. Open `docs/index.html` in your browser.
