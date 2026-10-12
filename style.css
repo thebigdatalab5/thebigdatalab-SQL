@@ -1,0 +1,85 @@
+:root{
+	--bg:#fbf8ff;
+	--card:#ffffff;
+	--muted:#6b7280;
+	--accent1:#6b28ff;
+	--accent2:#00c2a8;
+	--accent3:#ff7ab6;
+	--glass: rgba(255,255,255,0.6);
+}
+*{box-sizing:border-box;font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif}
+body{margin:0;background:linear-gradient(180deg,var(--bg),#f1f6ff);color:#0b1220}
+header{padding:24px;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff}
+header h1{margin:0;font-size:22px;letter-spacing:0.2px}
+header .tag{margin:6px 0 0;font-size:13px;opacity:.95}
+main{display:flex;gap:20px;padding:20px}
+.left{width:52%}
+.right{width:48%}
+.card{background:var(--card);border-radius:12px;padding:16px;margin-bottom:18px;box-shadow:0 6px 18px rgba(16,24,40,0.08);border:1px solid rgba(16,24,40,0.03)}
+.story p{margin:6px 0}
+.form-row{display:flex;align-items:center;gap:8px;margin:10px 0}
+.form-row label{min-width:100px;font-weight:600;color:var(--muted)}
+.cols{display:flex;flex-wrap:wrap;gap:10px}
+.cols label{font-size:13px;background:linear-gradient(180deg,#fff,#fbfbff);padding:6px 8px;border-radius:8px;border:1px solid rgba(12,18,38,0.03)}
+.actions button{margin-right:8px;padding:10px 14px;border-radius:10px;border:0;background:var(--accent3);color:#fff;cursor:pointer;box-shadow:0 6px 14px rgba(255,122,182,0.12)}
+.actions button#reset{background:transparent;color:var(--accent1);border:1px solid rgba(107,40,255,0.12);box-shadow:none}
+.actions button#show-sql{background:transparent;color:#111;border:1px solid rgba(16,24,40,0.06)}
+.sql{background:linear-gradient(180deg,#0f1724,#0b1220);color:#e6eef8;padding:10px;border-radius:8px;max-height:140px;overflow:auto}
+#result-table{width:100%;border-collapse:collapse;margin-top:12px;border-radius:8px;overflow:hidden}
+#result-table th,#result-table td{border-bottom:1px solid rgba(16,24,40,0.04);padding:10px;text-align:left}
+.count{font-size:14px;margin-bottom:8px;color:var(--muted)}
+.challenge-output{margin-top:8px;background:linear-gradient(180deg,#fff,#fbfbff);padding:10px;border-radius:10px;border:1px solid rgba(12,18,38,0.03)}
+.challenge-output pre{margin:0;background:transparent}
+.explanation .tip{font-size:13px;color:var(--muted)}
+footer{padding:12px;text-align:center;font-size:13px;color:var(--muted)}
+
+/* Quiz styles */
+.quiz-q{margin:10px 0;padding:10px;border-radius:8px;background:linear-gradient(90deg,rgba(107,40,255,0.04),rgba(0,194,168,0.02));border:1px solid rgba(107,40,255,0.06)}
+.quiz-options label{display:block;margin:6px 0;font-size:14px}
+#quiz-result strong{display:block;margin-bottom:8px}
+.quiz-success{background:linear-gradient(90deg,#c6f6d5,#b6f0ff);border-left:4px solid #34d399;padding:8px;border-radius:6px}
+.quiz-fail{background:linear-gradient(90deg,#ffe4e6,#fff0f6);border-left:4px solid #fb7185;padding:8px;border-radius:6px}
+
+/* subtle hover */
+.card:hover{transform:translateY(-4px);transition:transform .18s ease}
+
+@media(max-width:900px){main{flex-direction:column}.left,.right{width:100%}}
+
+/* confetti */
+.confetti-piece{position:fixed;width:10px;height:14px;opacity:0.95;z-index:9999;pointer-events:none;animation:fall 2000ms linear forwards}
+@keyframes fall{0%{transform:translateY(-20vh) rotate(0)}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+/* Unique card backgrounds */
+.card.story{background:linear-gradient(135deg,#fff9f5,#fff2e6);border:1px solid rgba(255,154,79,0.12)}
+.card.controls{background:linear-gradient(135deg,#f7fffb,#e6fff6);border:1px solid rgba(0,194,168,0.08)}
+.card.challenges{background:linear-gradient(135deg,#f7f8ff,#eef3ff);border:1px solid rgba(107,40,255,0.06)}
+.card.results{background:linear-gradient(135deg,#fff8ff,#f6f0ff);border:1px solid rgba(140,82,255,0.06)}
+.card.explanation{background:linear-gradient(135deg,#fffdf6,#fff9e8);border:1px solid rgba(255,216,120,0.06)}
+.card.quiz{background:linear-gradient(135deg,#fef7ff,#f3f7ff);border:1px solid rgba(155,120,255,0.06)}
+
+.card .card-accent{height:6px;border-radius:6px;margin-bottom:10px}
+.card.story .card-accent{background:linear-gradient(90deg,#ff7a59,#ffb86b)}
+.card.controls .card-accent{background:linear-gradient(90deg,#00c2a8,#7ef5d6)}
+.card.challenges .card-accent{background:linear-gradient(90deg,#6b28ff,#8f75ff)}
+.card.results .card-accent{background:linear-gradient(90deg,#a97bff,#ffd1f0)}
+.card.explanation .card-accent{background:linear-gradient(90deg,#ffd166,#fff39a)}
+.card.quiz .card-accent{background:linear-gradient(90deg,#ff7ab6,#ffb0d2)}
+
+/* tooltip for accents */
+.tip-bubble{position:absolute;background:#111827;color:#fff;padding:8px 10px;border-radius:8px;font-size:13px;box-shadow:0 6px 18px rgba(2,6,23,0.25);z-index:1000;max-width:260px}
+.tip-bubble::after{content:'';position:absolute;left:12px;top:100%;width:10px;height:10px;background:inherit;transform:translateY(-50%) rotate(45deg);box-shadow:inherit}
+
+/* result row animation */
+.result-row{opacity:0;transform:translateY(8px);}
+.result-row.show{animation:rowPop 260ms cubic-bezier(.2,.9,.2,1) forwards}
+@keyframes rowPop{0%{opacity:0;transform:translateY(8px) scale(.995)}100%{opacity:1;transform:none}}
+
+/* small icon styles */
+.icon{display:inline-flex;vertical-align:middle;margin-right:8px}
+.card h2 .icon,.card h3 .icon{margin-right:8px}
+
+/* revealed answer styling */
+.ans{padding:8px;border-radius:8px;margin:6px 0}
+.ans.correct{background:linear-gradient(90deg,#e6ffef,#d7fff2);border-left:4px solid #34d399}
+.ans.chosen{background:linear-gradient(90deg,#fff9e6,#fff5d8);border-left:4px solid #f59e0b}
+.ans.correct.chosen{box-shadow:0 6px 18px rgba(52,211,153,0.06)}
